@@ -1,27 +1,20 @@
 /**
- * Component: App
+ * App Component
  *
- * Purpose:
- * Root component for SQLPracticePro.
- * Displays the landing page.
+ * Root component of SQLPracticePro.
  */
 
-import "./App.css";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
 
 function App() {
   return (
-    <div className="app">
-      <h1>SQLPracticePro</h1>
-
-      <h2>Practice SQL. Understand SQL. Master SQL.</h2>
-
-      <p>
-        Learn SQL. Practice with real databases.
-        Build real skills. Become a SQL Pro.
-      </p>
-
-      <button>Start Practicing</button>
-    </div>
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+      </main>
+    </>
   );
 }
 

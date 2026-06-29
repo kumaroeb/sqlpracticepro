@@ -1,16 +1,14 @@
 /**
- * Component: App
+ * Component: Hero
  *
  * Purpose:
- * Root component for SQLPracticePro.
- * Displays the landing page.
+ * Displays the main introduction section
+ * of the SQLPracticePro landing page.
  */
 
-import "./App.css";
-
-function App() {
+function Hero() {
   return (
-    <div className="app">
+    <section>
       <h1>SQLPracticePro</h1>
 
       <h2>Practice SQL. Understand SQL. Master SQL.</h2>
@@ -20,9 +18,9 @@ function App() {
         Build real skills. Become a SQL Pro.
       </p>
 
-      <button>Start Practicing</button>
-    </div>
+      <button type="button">Start Practicing</button>
+    </section>
   );
 }
 
-export default App;
+export default Hero;
