@@ -1,1 +1,56 @@
 @import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-bg: #0b1220;
+  --color-bg-elevated: #101a2e;
+  --color-bg-card: #131f36;
+  --color-border: #223049;
+  --color-border-bright: #2c4265;
+
+  --color-text: #edeef3;
+  --color-text-muted: #8b93a7;
+  --color-text-faint: #5b6478;
+
+  --color-teal: #2dd4bf;
+  --color-teal-dim: #1a8f81;
+  --color-amber: #f5a623;
+  --color-rose: #ef6f6c;
+  --color-violet: #9d8cff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-teal);
+  color: var(--color-bg);
+}
+
+/* Subtle grid texture used behind the hero — evokes a data table / schema grid */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(140, 155, 190, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(140, 155, 190, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
