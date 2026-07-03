@@ -1,4 +1,5 @@
 import { ArrowRight, Lock } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { companies } from '../data/companies'
 
 const accentMap: Record<string, { text: string; bg: string; ring: string; border: string }> = {
@@ -58,17 +59,14 @@ export default function CompanyCards() {
 
             if (isAvailable) {
               return (
-                // TODO(v0.2): point this at the real workspace route
-                // (e.g. /workspace/streamflix) once the SQL Workspace ships.
-                // For now it scrolls to this section so the CTA never 404s.
-                <a
+                <Link
                   key={company.id}
-                  href="#worlds"
+                  to="/streamflix"
                   aria-label={`Start the ${company.name} SQL challenge`}
                   className={`group rounded-lg border bg-bg-card p-6 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal ${accent.border} ${accent.ring}`}
                 >
                   {cardInner}
-                </a>
+                </Link>
               )
             }
 

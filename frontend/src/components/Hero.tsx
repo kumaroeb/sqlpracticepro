@@ -1,4 +1,5 @@
 import { ArrowDown, Play } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function Hero() {
   return (
@@ -24,13 +25,13 @@ export default function Hero() {
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-4">
-            <a
-              href="#worlds"
+            <Link
+              to="/streamflix"
               className="inline-flex items-center gap-2 rounded-md bg-teal px-5 py-3 text-sm font-medium text-bg transition-colors hover:bg-teal-dim"
             >
               <Play size={16} strokeWidth={2.5} />
               Start with StreamFlix
-            </a>
+            </Link>
             <a
               href="#how-it-works"
               className="inline-flex items-center gap-2 text-sm font-medium text-text-muted transition-colors hover:text-text"

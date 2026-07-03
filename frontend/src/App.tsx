@@ -1,22 +1,13 @@
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import CompanyCards from './components/CompanyCards'
-import HowItWorks from './components/HowItWorks'
-import FeatureCards from './components/FeatureCards'
-import Footer from './components/Footer'
+import { Routes, Route } from 'react-router-dom'
+import LandingPage from './pages/LandingPage'
+import StreamFlixChallengePage from './pages/StreamFlixChallengePage'
 
 function App() {
   return (
-    <div className="min-h-screen bg-bg">
-      <Navbar />
-      <main>
-        <Hero />
-        <CompanyCards />
-        <HowItWorks />
-        <FeatureCards />
-      </main>
-      <Footer />
-    </div>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/streamflix" element={<StreamFlixChallengePage />} />
+    </Routes>
   )
 }
 
