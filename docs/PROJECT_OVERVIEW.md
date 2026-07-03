@@ -2,7 +2,7 @@
 
 ## Version
 
-v0.1
+v0.1.3
 
 ---
 
@@ -232,17 +232,23 @@ Performance first.
 
 # Current Version
 
-**v0.1 — Landing Page: complete.**
+**v0.1 — Landing Page: complete** (Landing Page Completion sprint shipped).
 
-- Hero
+- Hero (refined CTA: "Start with StreamFlix")
 - Navbar
-- Feature Cards
-- Company Card (simplified: name, domain, description only)
+- Company Cards (StreamFlix active, others marked Coming Soon)
+- How It Works (5-step flow)
+- Why SQLPracticePro (feature cards)
 - Footer
-- Responsive Design
+- Responsive design (desktop, tablet, mobile)
 - Tailwind CSS
 
+No authentication, pricing section, or testimonials — deliberately out of
+scope for the landing page.
+
 **Next up: v0.2 — SQL Workspace** (Monaco Editor, connected to the backend).
+This is also where the StreamFlix card's CTA gets pointed at a real
+workspace route instead of scrolling back to Learning Worlds.
 
 ---
 
@@ -349,14 +355,26 @@ and behavior not listed here are intentionally left out until needed.
 
 ## Company Card
 
-**Purpose:** Display one fictional company.
+**Purpose:** Display one fictional company, and whether it's playable yet.
 
-**Status:** Completed (v0.1) — shows domain, name, and description only.
+**Status:** Completed (v0.1) — shows domain, name, description, and status
+(StreamFlix is active; MedCare, ShopSphere, and CampusHub show "Coming Soon").
 
 **Future (not yet built):**
 - Progress indicator
 - Difficulty badge
 - Completion %
+- Real link to the workspace route (currently scrolls back to Learning
+  Worlds — see `TODO(v0.2)` in `CompanyCards.tsx`)
+
+## How It Works
+
+**Purpose:** Show new visitors the 5-step flow (pick a company → read the
+problem → write a query → run it → compare & learn) so they understand the
+product before committing to a challenge.
+
+**Status:** Completed (v0.1) — static 5-step visual, no animation beyond
+hover states.
 
 ---
 

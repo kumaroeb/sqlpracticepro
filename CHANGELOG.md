@@ -2,6 +2,38 @@
 
 All notable changes to this project are documented here.
 
+## [0.1.3] - Landing Page Completion (feature spec v1.0)
+
+Note on numbering: this ships the "Landing Page Completion" feature spec,
+which was itself labeled v1.0. That's the landing page's own completion
+milestone — the overall project's v1.0 (Public Beta) still requires the
+SQL Workspace, backend, and StreamFlix dataset per the roadmap below.
+
+### Added
+- `HowItWorks` component: a 5-step flow (pick a company → read the problem
+  → write your query → run it → compare & learn), horizontal on desktop,
+  stacked on mobile, connected by a simple line — no animation beyond
+  hover states
+- `steps.ts` data file backing the above
+
+### Changed
+- **Hero CTA refined**: primary button now reads "Start with StreamFlix"
+  and links to Learning Worlds; secondary link now points at the new
+  "How It Works" section instead of Features
+- **Company Cards**: `status` field is back (`available` / `coming-soon`).
+  StreamFlix is the only active card — clickable, hover state, "Start the
+  StreamFlix challenge" CTA. The other three show a "Coming Soon" badge
+  and are visually disabled (not interactive, `aria-disabled`)
+- StreamFlix's CTA currently scrolls back to Learning Worlds rather than
+  linking to a real workspace route — flagged with a `TODO(v0.2)` comment
+  in `CompanyCards.tsx` for when the SQL Workspace ships and gets a real URL
+
+### Notes
+- No authentication, pricing section, testimonials, or animation beyond
+  hover effects were added — per this sprint's constraints
+- Footer and Why SQLPracticePro (feature cards) were already minimal /
+  built from the previous pass and needed no changes for this sprint
+
 ## [0.1.2] - Trim stub nav & footer links
 
 ### Changed

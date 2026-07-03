@@ -82,11 +82,14 @@ starts hitting `/companies`), but the endpoint is live and ready to use.
 
 ## Current status
 
-**v0.1 (Landing Page): complete.** Navbar, Hero, Learning Worlds (Company
-Card — kept intentionally minimal), Features, and Footer are all built and
-responsive.
+**v0.1 (Landing Page): complete.** Navbar, Hero, Learning Worlds (StreamFlix
+active, others Coming Soon), How It Works, Why SQLPracticePro, and Footer
+are all built and responsive. No auth, pricing, or testimonials — out of
+scope by design.
 
 **Next up — v0.2: SQL Workspace.** Monaco Editor, connected to the backend.
+This is also when the StreamFlix card's CTA gets pointed at a real workspace
+route instead of scrolling back to Learning Worlds.
 
 See the [Roadmap](docs/PROJECT_OVERVIEW.md#roadmap) for the full version plan.
 
