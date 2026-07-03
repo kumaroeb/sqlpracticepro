@@ -1,5 +1,5 @@
-// Company Card — v0.1 scope: display one fictional company, nothing more.
-// Fields deliberately kept minimal. Planned additions (not yet built):
+// Company Card — v1.0 scope: display one fictional company, and whether
+// it's playable yet. Planned additions (not yet built):
 //   - progress indicator (per-user completion)
 //   - difficulty badge
 //   - completion %
@@ -11,6 +11,7 @@ export type Company = {
   domain: string
   description: string
   accent: string
+  status: 'available' | 'coming-soon'
 }
 
 export const companies: Company[] = [
@@ -21,6 +22,7 @@ export const companies: Company[] = [
     description:
       'The Product team wants the top-rated releases for the homepage. You have Movies, Actors, Reviews, and Watch History.',
     accent: 'rose',
+    status: 'available',
   },
   {
     id: 'medcare',
@@ -29,6 +31,7 @@ export const companies: Company[] = [
     description:
       'Operations needs patient wait times by department, broken down by shift and week.',
     accent: 'teal',
+    status: 'coming-soon',
   },
   {
     id: 'shopsphere',
@@ -37,6 +40,7 @@ export const companies: Company[] = [
     description:
       'Marketing wants repeat-purchase rate by acquisition channel, ahead of the Q3 budget review.',
     accent: 'amber',
+    status: 'coming-soon',
   },
   {
     id: 'campushub',
@@ -45,5 +49,6 @@ export const companies: Company[] = [
     description:
       'The registrar needs enrollment trends by department and semester for the annual report.',
     accent: 'violet',
+    status: 'coming-soon',
   },
 ]

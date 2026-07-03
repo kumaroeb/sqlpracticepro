@@ -1,15 +1,13 @@
+import { ArrowRight, Lock } from 'lucide-react'
 import { companies } from '../data/companies'
 
-const accentMap: Record<string, { text: string; bg: string; ring: string }> = {
-  rose: { text: 'text-rose', bg: 'bg-rose/10', ring: 'hover:border-rose/50' },
-  teal: { text: 'text-teal', bg: 'bg-teal/10', ring: 'hover:border-teal/50' },
-  amber: { text: 'text-amber', bg: 'bg-amber/10', ring: 'hover:border-amber/50' },
-  violet: { text: 'text-violet', bg: 'bg-violet/10', ring: 'hover:border-violet/50' },
+const accentMap: Record<string, { text: string; bg: string; ring: string; border: string }> = {
+  rose: { text: 'text-rose', bg: 'bg-rose/10', ring: 'hover:border-rose/50', border: 'border-rose/40' },
+  teal: { text: 'text-teal', bg: 'bg-teal/10', ring: 'hover:border-teal/50', border: 'border-teal/40' },
+  amber: { text: 'text-amber', bg: 'bg-amber/10', ring: 'hover:border-amber/50', border: 'border-amber/40' },
+  violet: { text: 'text-violet', bg: 'bg-violet/10', ring: 'hover:border-violet/50', border: 'border-violet/40' },
 }
 
-// Company Card — v0.1: shows one fictional company. That's it for now.
-// Progress indicator, difficulty badge, and completion % come later,
-// once the SQL Workspace (v0.2) gives us something to track progress on.
 export default function CompanyCards() {
   return (
     <section id="worlds" className="border-b border-border bg-bg-elevated">
@@ -30,17 +28,57 @@ export default function CompanyCards() {
         <div className="grid gap-5 sm:grid-cols-2">
           {companies.map((company) => {
             const accent = accentMap[company.accent]
-            return (
-              <div
-                key={company.id}
-                className={`rounded-lg border border-border bg-bg-card p-6 transition-colors ${accent.ring}`}
-              >
-                <span className={`inline-block rounded-md px-2.5 py-1 text-xs font-medium ${accent.bg} ${accent.text}`}>
-                  {company.domain}
-                </span>
+            const isAvailable = company.status === 'available'
+
+            const cardInner = (
+              <>
+                <div className="flex items-start justify-between gap-3">
+                  <span className={`inline-block rounded-md px-2.5 py-1 text-xs font-medium ${accent.bg} ${accent.text}`}>
+                    {company.domain}
+                  </span>
+                  {!isAvailable && (
+                    <span className="flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-text-faint">
+                      <Lock size={12} />
+                      Coming Soon
+                    </span>
+                  )}
+                </div>
 
                 <h3 className="mt-4 font-display text-xl font-semibold text-text">{company.name}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-text-muted">{company.description}</p>
+
+                {isAvailable && (
+                  <span className={`mt-5 inline-flex items-center gap-1.5 text-sm font-medium ${accent.text}`}>
+                    Start the StreamFlix challenge
+                    <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                )}
+              </>
+            )
+
+            if (isAvailable) {
+              return (
+                // TODO(v0.2): point this at the real workspace route
+                // (e.g. /workspace/streamflix) once the SQL Workspace ships.
+                // For now it scrolls to this section so the CTA never 404s.
+                <a
+                  key={company.id}
+                  href="#worlds"
+                  aria-label={`Start the ${company.name} SQL challenge`}
+                  className={`group rounded-lg border bg-bg-card p-6 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal ${accent.border} ${accent.ring}`}
+                >
+                  {cardInner}
+                </a>
+              )
+            }
+
+            return (
+              <div
+                key={company.id}
+                aria-disabled="true"
+                className="rounded-lg border border-border bg-bg-card p-6 opacity-60"
+              >
+                {cardInner}
               </div>
             )
           })}

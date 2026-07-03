@@ -29,10 +29,10 @@ export default function Hero() {
               className="inline-flex items-center gap-2 rounded-md bg-teal px-5 py-3 text-sm font-medium text-bg transition-colors hover:bg-teal-dim"
             >
               <Play size={16} strokeWidth={2.5} />
-              Start practicing free
+              Start with StreamFlix
             </a>
             <a
-              href="#features"
+              href="#how-it-works"
               className="inline-flex items-center gap-2 text-sm font-medium text-text-muted transition-colors hover:text-text"
             >
               See how it works
@@ -41,7 +41,7 @@ export default function Hero() {
           </div>
 
           <p className="mt-8 text-xs text-text-faint">
-            Built for students, career changers, and analysts refreshing their SQL.
+            Free to start. No account required.
           </p>
         </div>
 
