@@ -13,10 +13,31 @@ import WhyThisQueryWorks from '../components/ticket/WhyThisQueryWorks'
 import ManagerFeedback from '../components/ticket/ManagerFeedback'
 import NextTicketButton from '../components/ticket/NextTicketButton'
 import { mockTicket, schemaTables } from '../data/mockTicket'
+import { executeQuery, type ExecuteQuerySuccess } from '../services/api'
 
 export default function StreamFlixTicketPage() {
   const [query, setQuery] = useState(mockTicket.starterQuery)
   const [hasRun, setHasRun] = useState(false)
+  const [isRunning, setIsRunning] = useState(false)
+  const [result, setResult] = useState<ExecuteQuerySuccess | null>(null)
+  const [error, setError] = useState<string | null>(null)
+
+  async function handleRunQuery() {
+    setIsRunning(true)
+    setError(null)
+
+    const response = await executeQuery(query)
+
+    setIsRunning(false)
+    setHasRun(true)
+
+    if (response.ok) {
+      setResult(response.data)
+    } else {
+      setResult(null)
+      setError(response.error)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-bg">
@@ -56,13 +77,17 @@ export default function StreamFlixTicketPage() {
             <Workspace value={query} onChange={setQuery} />
 
             <div>
-              <RunQueryButton onRun={() => setHasRun(true)} />
+              <RunQueryButton onRun={handleRunQuery} isLoading={isRunning} />
             </div>
 
             <ResultsPanel
-              columns={mockTicket.results.columns}
-              rows={mockTicket.results.rows}
+              columns={result?.columns ?? []}
+              rows={result?.rows ?? []}
+              rowCount={result?.rowCount ?? 0}
+              executionTimeMs={result?.executionTimeMs}
               hasRun={hasRun}
+              isLoading={isRunning}
+              error={error}
             />
 
             <HintSection hint={mockTicket.hint} />

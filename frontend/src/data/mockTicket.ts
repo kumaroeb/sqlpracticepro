@@ -60,10 +60,6 @@ export type Ticket = {
   explanation: string
   managerFeedback: string
   breadcrumb: { label: string; href?: string }[]
-  results: {
-    columns: string[]
-    rows: Record<string, string | number>[]
-  }
 }
 
 export const mockTicket: Ticket = {
@@ -88,12 +84,4 @@ export const mockTicket: Ticket = {
     { label: 'StreamFlix', href: '/streamflix' },
     { label: 'TCK-001', href: undefined },
   ],
-  results: {
-    columns: ['id', 'title', 'genre_id', 'director_id', 'release_year'],
-    rows: [
-      { id: 1, title: 'Redline Protocol', genre_id: 2, director_id: 4, release_year: 2023 },
-      { id: 2, title: 'Ashfall', genre_id: 1, director_id: 2, release_year: 2022 },
-      { id: 3, title: 'Last Signal', genre_id: 2, director_id: 4, release_year: 2021 },
-    ],
-  },
 }

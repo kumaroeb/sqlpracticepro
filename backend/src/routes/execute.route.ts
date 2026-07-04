@@ -1,9 +1,24 @@
 import { Router } from 'express'
+import { executeQuery, QueryValidationError } from '../services/queryExecutor'
 
 export const executeRouter = Router()
 
-// Placeholder only. The SQL execution engine is a later Sprint 6 slice —
-// this route intentionally does not touch the database or run any query.
-executeRouter.post('/execute', (_req, res) => {
-  res.json({ message: 'Execution engine coming in Sprint 6' })
+executeRouter.post('/execute', async (req, res) => {
+  const { query } = req.body ?? {}
+
+  if (typeof query !== 'string') {
+    return res.status(400).json({ error: 'Request body must include a "query" string.' })
+  }
+
+  try {
+    const result = await executeQuery(query)
+    return res.json(result)
+  } catch (err) {
+    if (err instanceof QueryValidationError) {
+      return res.status(400).json({ error: err.message })
+    }
+
+    const message = err instanceof Error ? err.message : 'Unknown database error.'
+    return res.status(400).json({ error: message })
+  }
 })
