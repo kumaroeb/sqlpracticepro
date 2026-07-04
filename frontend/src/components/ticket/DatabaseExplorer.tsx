@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import { ChevronDown, Table2 } from 'lucide-react'
-import type { SchemaTable } from '../../data/mockChallenge'
+import type { SchemaTable } from '../../data/mockTicket'
 
-type SchemaExplorerProps = {
+type DatabaseExplorerProps = {
   tables: SchemaTable[]
 }
 
-export default function SchemaExplorer({ tables }: SchemaExplorerProps) {
+export default function DatabaseExplorer({ tables }: DatabaseExplorerProps) {
   const [openTable, setOpenTable] = useState<string | null>(tables[0]?.name ?? null)
 
   return (
     <div className="rounded-lg border border-border bg-bg-card p-4">
       <h2 className="mb-3 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-text-faint">
         <Table2 size={14} />
-        Schema
+        Database
       </h2>
       <ul className="flex flex-col gap-1">
         {tables.map((table) => {
