@@ -49,6 +49,7 @@ export type Ticket = {
   ticketNumber: string
   department: string
   manager: string
+  managerTitle: string
   priority: Priority
   estimatedMinutes: number
   difficulty: Difficulty
@@ -60,12 +61,22 @@ export type Ticket = {
   explanation: string
   managerFeedback: string
   breadcrumb: { label: string; href?: string }[]
+  // Assignment Complete panel (Sprint 8, Slice 3) — shown only when the
+  // ticket's validation passes.
+  assignmentCompleteMessage: string
+  learnedConcepts: string[]
+  learnedExplanation: string
+  businessImpact: string
+  nextTicketDisplay: string
+  nextTicketTitle: string
+  nextTicketEstimatedTime: string
 }
 
 export const mockTicket: Ticket = {
   ticketNumber: 'TCK-001',
   department: 'Product Analytics',
   manager: 'Sophia Carter',
+  managerTitle: 'Product Analytics Manager',
   priority: 'Medium',
   estimatedMinutes: 5,
   difficulty: 'Beginner',
@@ -84,4 +95,14 @@ export const mockTicket: Ticket = {
     { label: 'StreamFlix', href: '/streamflix' },
     { label: 'TCK-001', href: undefined },
   ],
+  assignmentCompleteMessage:
+    "Excellent work.\nThe Product Team can now verify the homepage movie catalog using the report you generated.\nI've already prepared your next assignment.",
+  learnedConcepts: ['SELECT', 'FROM', 'Returning specific columns'],
+  learnedExplanation:
+    'You learned how to retrieve specific information from a database using the SELECT statement.',
+  businessImpact:
+    "Your report gives the Product Team a complete list of available movies before tomorrow's homepage release.",
+  nextTicketDisplay: 'Ticket #002',
+  nextTicketTitle: 'Movies Released After 2020',
+  nextTicketEstimatedTime: '5 minutes',
 }

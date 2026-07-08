@@ -11,9 +11,11 @@ import HintSection from '../components/ticket/HintSection'
 import SolutionPanel from '../components/ticket/SolutionPanel'
 import WhyThisQueryWorks from '../components/ticket/WhyThisQueryWorks'
 import ManagerFeedback from '../components/ticket/ManagerFeedback'
+import AssignmentComplete from '../components/ticket/AssignmentComplete'
 import NextTicketButton from '../components/ticket/NextTicketButton'
 import { mockTicket, schemaTables } from '../data/mockTicket'
-import { executeQuery, type ExecuteQuerySuccess } from '../services/api'
+import { executeQuery, validateTicket, type ExecuteQuerySuccess } from '../services/api'
+import { markTicketCompleted } from '../services/progress'
 
 export default function StreamFlixTicketPage() {
   const [query, setQuery] = useState(mockTicket.starterQuery)
@@ -21,23 +23,36 @@ export default function StreamFlixTicketPage() {
   const [isRunning, setIsRunning] = useState(false)
   const [result, setResult] = useState<ExecuteQuerySuccess | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [ticketPassed, setTicketPassed] = useState(false)
 
   async function handleRunQuery() {
     setIsRunning(true)
     setError(null)
 
-    const response = await executeQuery(query)
+    const [execResponse, validateResponse] = await Promise.all([
+      executeQuery(query),
+      validateTicket(mockTicket.ticketNumber, query),
+    ])
 
     setIsRunning(false)
     setHasRun(true)
 
-    if (response.ok) {
-      setResult(response.data)
+    if (execResponse.ok) {
+      setResult(execResponse.data)
     } else {
       setResult(null)
-      setError(response.error)
+      setError(execResponse.error)
+    }
+
+    const passed = validateResponse.ok && validateResponse.data.ticketPassed
+    setTicketPassed(passed)
+
+    if (passed) {
+      markTicketCompleted(mockTicket.ticketNumber)
     }
   }
+
+  const showAssignmentComplete = hasRun && ticketPassed
 
   return (
     <div className="min-h-screen bg-bg">
@@ -91,16 +106,36 @@ export default function StreamFlixTicketPage() {
             />
 
             <HintSection hint={mockTicket.hint} />
-
             <SolutionPanel solution={mockTicket.solution} />
 
-            <WhyThisQueryWorks explanation={mockTicket.explanation} hasRun={hasRun} />
+            {showAssignmentComplete ? (
+              <AssignmentComplete
+                manager={mockTicket.manager}
+                managerTitle={mockTicket.managerTitle}
+                managerMessage={mockTicket.assignmentCompleteMessage}
+                learnedConcepts={mockTicket.learnedConcepts}
+                learnedExplanation={mockTicket.learnedExplanation}
+                businessImpact={mockTicket.businessImpact}
+                nextTicket={mockTicket.nextTicketDisplay}
+                nextTicketTitle={mockTicket.nextTicketTitle}
+                estimatedTime={mockTicket.nextTicketEstimatedTime}
+              />
+            ) : (
+              <>
+                <WhyThisQueryWorks explanation={mockTicket.explanation} hasRun={hasRun} />
+                <ManagerFeedback
+                  manager={mockTicket.manager}
+                  feedback={mockTicket.managerFeedback}
+                  hasRun={hasRun}
+                />
+              </>
+            )}
 
-            <ManagerFeedback manager={mockTicket.manager} feedback={mockTicket.managerFeedback} hasRun={hasRun} />
-
-            <div className="flex justify-end pt-2">
-              <NextTicketButton />
-            </div>
+            {!showAssignmentComplete && (
+              <div className="flex justify-end pt-2">
+                <NextTicketButton />
+              </div>
+            )}
           </div>
         </div>
       </div>

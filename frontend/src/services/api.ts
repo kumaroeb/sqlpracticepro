@@ -13,6 +13,16 @@ export type ExecuteQueryResponse =
   | { ok: true; data: ExecuteQuerySuccess }
   | { ok: false; error: string }
 
+export type ValidateTicketSuccess = {
+  success: true
+  ticketPassed: boolean
+  message: string
+}
+
+export type ValidateTicketResponse =
+  | { ok: true; data: ValidateTicketSuccess }
+  | { ok: false; error: string }
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:4000'
 
 export async function executeQuery(query: string): Promise<ExecuteQueryResponse> {
@@ -36,6 +46,33 @@ export async function executeQuery(query: string): Promise<ExecuteQueryResponse>
   }
 
   if (!data || !Array.isArray(data.columns) || !Array.isArray(data.rows)) {
+    return { ok: false, error: 'Unexpected response from the server.' }
+  }
+
+  return { ok: true, data }
+}
+
+export async function validateTicket(ticketId: string, query: string): Promise<ValidateTicketResponse> {
+  let response: Response
+
+  try {
+    response = await fetch(`${API_BASE_URL}/tickets/${encodeURIComponent(ticketId)}/validate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query }),
+    })
+  } catch {
+    return { ok: false, error: 'Could not reach the server. Check your connection and try again.' }
+  }
+
+  const data = await response.json().catch(() => null)
+
+  if (!response.ok) {
+    const message = data && typeof data.message === 'string' ? data.message : `Request failed with status ${response.status}.`
+    return { ok: false, error: message }
+  }
+
+  if (!data || typeof data.ticketPassed !== 'boolean') {
     return { ok: false, error: 'Unexpected response from the server.' }
   }
 
